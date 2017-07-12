@@ -154,7 +154,7 @@ namespace Final_Project.Controllers
                 i += ties -1; //skip over the ties - they have already been entered
             }
 
-            return View("ScoreSummary", fencersArray.ToList().First());
+            return View("ScoreSummary", fencersArray.ToList());
         }
     }
 }

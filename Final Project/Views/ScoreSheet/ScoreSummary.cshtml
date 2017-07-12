@@ -1,4 +1,4 @@
-﻿@model Final_Project.Models.FencerModel
+﻿@model IEnumerable<Final_Project.Models.FencerModel>
 
 @{
     ViewBag.Title = "ScoreSummary";
@@ -9,54 +9,27 @@
 <div>
     <h4>FencerModel</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Victories)
-        </dt>
+        <th>Name</th>
+        <th>Victories</th>
+        <th>Touches Scored</th>
+        <th>Touches Received</th>
+        <th>Indicator</th>
+        <th>Placement</th>
 
-        <dd>
-            @Html.DisplayFor(model => model.Victories)
-        </dd>
+        @foreach (Final_Project.Models.FencerModel fencer in Model)
+        {
+            <tr>
+                <td>@fencer.Name</td>
+                <td>@fencer.Victories</td>
+                <td>@fencer.TouchesScored</td>
+                <td>@fencer.TouchesReceived</td>
+                <td>@fencer.Indicator</td>
+                <td>@fencer.Placement</td>
+            </tr>
+        }
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TouchesScored)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TouchesScored)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TouchesReceived)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TouchesReceived)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Indicator)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Indicator)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Placement)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Placement)
-        </dd>
-
-    </dl>
 </div>
