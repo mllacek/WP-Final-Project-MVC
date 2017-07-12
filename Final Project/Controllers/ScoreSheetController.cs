@@ -18,13 +18,13 @@ namespace Final_Project.Controllers
         // GET: /ScoreSheet/Index
         public ActionResult Index()
         {
-            return View(fencers);
+            return View("Index", fencers);
         }
 
         // GET: /ScoreSheet/Create
         public ActionResult Create()
         {
-            return View(new FencerModel { ID= fencers.Count(), Name = "" });
+            return View("Create", new FencerModel { ID= fencers.Count(), Name = "" });
         }
 
         // POST: /ScoreSheet/Create
@@ -50,7 +50,7 @@ namespace Final_Project.Controllers
         [HttpGet]
         public ActionResult Bout()
         {
-            if (bouts.Count() == boutOrder.Length) //Check if all bouts have been finished
+            if (bouts.Count() == boutOrder.GetLength(0)) //Check if all bouts have been finished
             {
                 return RedirectToAction("ScoreSummary");
             }
@@ -80,7 +80,7 @@ namespace Final_Project.Controllers
 
                 bouts.Add(bout);
 
-                if(bouts.Count() == boutOrder.Length) //all bouts have been finished
+                if(bouts.Count() == boutOrder.GetLength(0)) //all bouts have been finished
                 {
                     return RedirectToAction("ScoreSummary");
                 }
@@ -89,21 +89,21 @@ namespace Final_Project.Controllers
             }
             catch
             {
-                return View(); //return view with original bout
+                return View("Bout", bout); //return view with original bout
             }
         }
 
         [HttpGet]
         public ActionResult ScoreSummary()
         {
-            if (bouts.Count() == boutOrder.Length) //Check if all bouts have been finished
+            if (bouts.Count() != boutOrder.GetLength(0)) //Check if all bouts have been finished
             {
                 return RedirectToAction("Bout");
             }
 
             //TODO: calculate all scores
 
-            return View();
+            return View("ScoreSummary", fencers.First());
         }
     }
 }

@@ -1,0 +1,66 @@
+﻿@model Final_Project.Models.FencerModel
+
+@{
+    ViewBag.Title = "ScoreSummary";
+}
+
+<h2>ScoreSummary</h2>
+
+<div>
+    <h4>FencerModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Victories)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Victories)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TouchesScored)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TouchesScored)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TouchesReceived)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TouchesReceived)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indicator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indicator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placement)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

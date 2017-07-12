@@ -186,6 +186,7 @@
     <Content Include="Views\ScoreSheet\Index.cshtml" />
     <Content Include="Views\ScoreSheet\Create.cshtml" />
     <Content Include="Views\ScoreSheet\Bout.cshtml" />
+    <Content Include="Views\ScoreSheet\ScoreSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
