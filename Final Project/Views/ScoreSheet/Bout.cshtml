@@ -15,7 +15,6 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstFencerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.FirstFencerId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FirstFencerId, "", new { @class = "text-danger" })
@@ -23,7 +22,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SecondFencerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.SecondFencerId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SecondFencerId, "", new { @class = "text-danger" })
@@ -31,8 +29,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstFencerScore, htmlAttributes: new { @class = "control-label col-md-2" })
-            <span>@ViewBag.First</span>
+            <label class="control-label col-md-2">@ViewBag.First's Score</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FirstFencerScore, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FirstFencerScore, "", new { @class = "text-danger" })
@@ -40,8 +37,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SecondFencerScore, htmlAttributes: new { @class = "control-label col-md-2" })
-            <span>@ViewBag.Second</span>
+            <label class="control-label col-md-2">@ViewBag.Second's Score</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SecondFencerScore, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SecondFencerScore, "", new { @class = "text-danger" })
@@ -50,7 +46,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Submit Scores" class="btn btn-default" />
             </div>
         </div>
     </div>
