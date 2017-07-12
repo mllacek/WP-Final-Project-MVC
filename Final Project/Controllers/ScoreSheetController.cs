@@ -11,6 +11,9 @@ namespace Final_Project.Controllers
     public class ScoreSheetController : Controller
     {
         static List<FencerModel> fencers = new List<FencerModel>();
+        static List<BoutModel> bouts = new List<BoutModel>();
+
+        static int[,] boutOrder = { {0, 3}, {1, 2}, {0, 2}, {1, 3}, {2, 3}, { 0, 1} };
 
         // GET: /ScoreSheet/Index
         public ActionResult Index()
@@ -18,49 +21,11 @@ namespace Final_Project.Controllers
             return View(fencers);
         }
 
-        //// GET: /ScoreSheet/Fencers
-        //public ActionResult Fencers()
-        //{
-        //    List<FencerModel> tempFencers = new List<FencerModel>();
-
-        //    for (int i = 0; i <4; i++)
-        //    {
-        //        tempFencers.Add(new FencerModel { ID = i, Name = "" });
-        //    }
-
-        //    return View("Fencers", tempFencers);
-        //}
-
-        //// POST: /ScoreSheet/CreateSheet
-        //[HttpPost]
-        //public ActionResult CreateSheet(List<FencerModel> newFencers)
-        //{
-        //    try
-        //    {
-        //        foreach(FencerModel fencer in newFencers)
-        //        {
-        //            // TODO: Add insert logic here
-        //            if (!ModelState.IsValid)
-        //            {
-        //                return View("Fencers", newFencers);
-        //            }
-        //            fencers.Add(fencer);
-        //        }
-
-        //        return RedirectToAction("Index");
-
-        //    }
-        //    catch
-        //    {
-        //        return View("Index");
-        //    }
-        //}
-
         // GET: /ScoreSheet/Create
         public ActionResult Create()
         {
             //fencers.Add();
-            return View(new FencerModel { Name = "" });
+            return View(new FencerModel { ID= fencers.Count(), Name = "" });
         }
 
         // POST: /ScoreSheet/Create
@@ -69,7 +34,6 @@ namespace Final_Project.Controllers
         {
             try
             {
-                newFencer.ID = fencers.Count();
 
                 // TODO: Add insert logic here
                 if (!ModelState.IsValid)
@@ -81,7 +45,41 @@ namespace Final_Project.Controllers
             }
             catch
             {
-                return View();
+                return View("Create", newFencer);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Bout()
+        {
+            BoutModel bout = new BoutModel();
+            bout.FirstFencerId = boutOrder[bouts.Count(), 0];
+            bout.SecondFencerId = boutOrder[bouts.Count(), 1];
+
+            ViewBag.First = fencers.First(f => f.ID == bout.FirstFencerId).Name;
+            ViewBag.Second = fencers.First(f => f.ID == bout.SecondFencerId).Name;
+
+            return View(bout); //TODO, check if this is the last bout
+        }
+
+        [HttpPost]
+        public ActionResult Bout(BoutModel bout)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                {
+                    return View("Bout");
+                }
+
+                bouts.Add(bout);
+
+                return RedirectToAction("Bout"); //return view with next bout
+            }
+            catch
+            {
+                return View(); //return view with original bout
             }
         }
     }
