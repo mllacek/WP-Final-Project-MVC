@@ -15,9 +15,11 @@ namespace Final_Project.Models
         public int SecondFencerId { get; set; }
 
         [Required(ErrorMessage = "This Field is Required")]
+        [Range(0, 5, ErrorMessage = "A fencing bout's score must be between 0 and 5.")]
         public int FirstFencerScore { get; set; }
 
         [Required(ErrorMessage = "This Field is Required")]
+        [Range(0, 5, ErrorMessage = "A fencing bout's score must be between 0 and 5.")]
         public int SecondFencerScore { get; set; }
 
     }
