@@ -24,7 +24,6 @@ namespace Final_Project.Controllers
         // GET: /ScoreSheet/Create
         public ActionResult Create()
         {
-            //fencers.Add();
             return View(new FencerModel { ID= fencers.Count(), Name = "" });
         }
 
@@ -35,7 +34,6 @@ namespace Final_Project.Controllers
             try
             {
 
-                // TODO: Add insert logic here
                 if (!ModelState.IsValid)
                 {
                     return View("Create", newFencer);
@@ -52,6 +50,11 @@ namespace Final_Project.Controllers
         [HttpGet]
         public ActionResult Bout()
         {
+            if (bouts.Count() == boutOrder.Length) //Check if all bouts have been finished
+            {
+                return RedirectToAction("ScoreSummary");
+            }
+
             BoutModel bout = new BoutModel();
             bout.FirstFencerId = boutOrder[bouts.Count(), 0];
             bout.SecondFencerId = boutOrder[bouts.Count(), 1];
@@ -59,7 +62,7 @@ namespace Final_Project.Controllers
             ViewBag.First = fencers.First(f => f.ID == bout.FirstFencerId).Name;
             ViewBag.Second = fencers.First(f => f.ID == bout.SecondFencerId).Name;
 
-            return View(bout); //TODO, check if this is the last bout
+            return View(bout);
         }
 
         [HttpPost]
@@ -67,7 +70,6 @@ namespace Final_Project.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
                 if (!ModelState.IsValid)
                 {
                     return View("Bout");
@@ -75,12 +77,30 @@ namespace Final_Project.Controllers
 
                 bouts.Add(bout);
 
+                if(bouts.Count() == boutOrder.Length) //all bouts have been finished
+                {
+                    return RedirectToAction("ScoreSummary");
+                }
+
                 return RedirectToAction("Bout"); //return view with next bout
             }
             catch
             {
                 return View(); //return view with original bout
             }
+        }
+
+        [HttpGet]
+        public ActionResult ScoreSummary()
+        {
+            if (bouts.Count() == boutOrder.Length) //Check if all bouts have been finished
+            {
+                return RedirectToAction("Bout");
+            }
+
+            //TODO: calculate all scores
+
+            return View();
         }
     }
 }
