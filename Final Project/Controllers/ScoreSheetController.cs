@@ -127,16 +127,34 @@ namespace Final_Project.Controllers
                 fencer.Indicator = fencer.TouchesScored - fencer.TouchesReceived;
             }
 
-            var test = fencers.Max(x => x.Victories);
-
-
-            //TODO: The seeding places first fencers with highest number of victories 
-            //(not absolute number as in the pool, but relative number, which indicates a percentage of victories in the pools against number of bouts fenced in the pool by that fencer), 
+            //The seeding places first fencers with highest number of victories 
             //followed by higher Indicator (in case two or more fencers have same amount of victories), 
-            //then by touches scored (if indicator is the same). In case all these parameters are the  same, then fencers are all tied and placed in the same place in the random order 
-            //(notes with letter T near the final placement number, like 21T).
+            //then by touches scored (if indicator is the same). In case all these parameters are the  same, 
+            //then fencers are all tied and placed in the same place in the random order 
 
-            return View("ScoreSummary", fencers.First());
+            FencerModel[] fencersArray = fencers.OrderByDescending(x => x.Victories).ThenByDescending(y => y.Indicator).ThenByDescending(z => z.TouchesScored).ToArray();
+
+            int place = 1;
+
+            for (int i = 0; i < fencersArray.Length; i++)
+            {
+                //each fencer will appear as a tied to himself
+                int ties = fencers.Where(f => f.Victories == fencersArray[i].Victories)
+                                .Where(f => f.Indicator == fencersArray[i].Indicator)
+                                    .Where(f => f.TouchesScored == fencersArray[i].TouchesScored)
+                                        .Count();
+
+                for(int j = 0; j < ties; j++)
+                {
+                    fencersArray[i + j].Placement = place;
+                }
+
+                place++;
+
+                i += ties -1; //skip over the ties - they have already been entered
+            }
+
+            return View("ScoreSummary", fencersArray.ToList().First());
         }
     }
 }
