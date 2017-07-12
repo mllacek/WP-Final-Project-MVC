@@ -101,7 +101,40 @@ namespace Final_Project.Controllers
                 return RedirectToAction("Bout");
             }
 
-            //TODO: calculate all scores
+            foreach (BoutModel bout in bouts)
+            {
+                FencerModel firstFencer = fencers.First(f => f.ID == bout.FirstFencerId);
+                FencerModel secondFencer = fencers.First(f => f.ID == bout.SecondFencerId);
+
+                firstFencer.TouchesScored += bout.FirstFencerScore;
+                secondFencer.TouchesScored += bout.SecondFencerScore;
+
+                firstFencer.TouchesReceived += bout.SecondFencerScore;
+                secondFencer.TouchesReceived += bout.FirstFencerScore;
+
+                if (bout.FirstFencerScore > bout.SecondFencerScore)
+                {
+                    firstFencer.Victories += 1;
+                }
+                else if (bout.FirstFencerScore > bout.SecondFencerScore)
+                {
+                    secondFencer.Victories += 1;
+                }
+            }
+
+            foreach (FencerModel fencer in fencers)
+            {
+                fencer.Indicator = fencer.TouchesScored - fencer.TouchesReceived;
+            }
+
+            var test = fencers.Max(x => x.Victories);
+
+
+            //TODO: The seeding places first fencers with highest number of victories 
+            //(not absolute number as in the pool, but relative number, which indicates a percentage of victories in the pools against number of bouts fenced in the pool by that fencer), 
+            //followed by higher Indicator (in case two or more fencers have same amount of victories), 
+            //then by touches scored (if indicator is the same). In case all these parameters are the  same, then fencers are all tied and placed in the same place in the random order 
+            //(notes with letter T near the final placement number, like 21T).
 
             return View("ScoreSummary", fencers.First());
         }
