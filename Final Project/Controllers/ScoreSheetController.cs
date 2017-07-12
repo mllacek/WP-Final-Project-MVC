@@ -72,7 +72,10 @@ namespace Final_Project.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View("Bout");
+                    ViewBag.First = fencers.First(f => f.ID == bout.FirstFencerId).Name;
+                    ViewBag.Second = fencers.First(f => f.ID == bout.SecondFencerId).Name;
+
+                    return View("Bout", bout);
                 }
 
                 bouts.Add(bout);
